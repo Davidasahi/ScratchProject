@@ -1,0 +1,32 @@
+const Session = require('../models/sessionModel');
+const sessionController = {};
+
+//check database for corresponding
+sessionController.isLoggedIn = (req, res, next) => {
+  // write code here
+  console.log('SSID cookie', SSIDcookie);
+
+  const SSIDcookie = req.cookies.SSID;
+  Session.find({ cookieId: SSIDcookie }) //look in
+    .exec((err, result) => {
+      if (err) next(err);
+      // console.log('finding cookie');
+      console.log('server: session ongoing, result:"', result);
+      res.locals.login = true;
+      return next();
+    });
+};
+
+/**
+ * startSession - create and save a new Session into the database.
+ */
+sessionController.startSession = (req, res, next) => {
+  //new doc in mongo database
+  //use ssid for it
+  const docObj = { cookieId: res.locals.userId };
+  Session.create(docObj, () => {
+    return next();
+  });
+};
+
+module.exports = sessionController;
