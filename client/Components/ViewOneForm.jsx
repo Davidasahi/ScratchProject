@@ -1,4 +1,4 @@
-//this page is a child of Splashpage, is rendered on its own (needs react router)
+//this page is a child of mainpage, is rendered on its own (needs react router)
 //this page displays one single form, 
 //contains previous form of answers to 
   //what is the problem?
