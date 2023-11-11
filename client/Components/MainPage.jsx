@@ -18,7 +18,7 @@ const MainPage = (props) => {
     //use effect so that components load on page render
     useEffect(()=> {
         //make a get request to receive all forms and data associated with USER ID
-        fetch('/') //update with correct endpoint
+        fetch('/') //update with correct endpoint POST REQUEST WITH USER ID ON REQ BODY
         .then(res => res.json())
         // store parsed json response on object
         .then((response) => {

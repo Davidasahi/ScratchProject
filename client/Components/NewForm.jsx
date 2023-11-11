@@ -5,8 +5,8 @@
   	//1. what is the problem? (Type: "text", Required)
 	//2. what did i expect to happen (Type: "text", Required)
     //3. what have I tried? (Type: "text", Required)
-    //4. Why I suspect its not working (Type: "test", Required)
-	//5. Error message: (Type: "test", Required)
+    //4. Why I suspect its not working (Type: "text", Required)
+	//5. Error message: (Type: "text", Required)
 	//6: Drop down menu containing clickable "fields/buttons" for the tags (Type: "buttons", Required) 
 	// *React.js, *Express.js, *Database(SQL/MondoDB), *UX(HTML, CSS), *Others
 	//https://www.vivaxsolutions.com/web/drop-down-menu.aspx
