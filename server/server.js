@@ -4,6 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 
+const cors = require('cors');
+
 const Session = require('./models/sessionModel');
 const User = require('./models/userModel');
 const Bug = require('./models/bugModel');
@@ -12,7 +14,7 @@ const userController = require('./controllers/userController');
 const sessionController = require('./controllers/sessionController');
 const cookiesController = require('./controllers/cookiesController');
 
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 mongoose
   .connect('mongodb://localhost:27017/itemsApp', { useNewUrlParser: true })
