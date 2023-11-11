@@ -4,7 +4,7 @@ const path = require('path');
 
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-
+const cors = require('cors');
 const Session = require('./models/sessionModel');
 const User = require('./models/userModel');
 const Bug = require('./models/bugModel');
@@ -13,7 +13,7 @@ const userController = require('./controllers/userController');
 const sessionController = require('./controllers/sessionController');
 const cookiesController = require('./controllers/cookiesController');
 
-const port = process.env.PORT || 3000;
+const PORT = 3000;
 
 mongoose
   .connect('mongodb://localhost:27017/itemsApp', { useNewUrlParser: true })
@@ -35,6 +35,8 @@ const corsOptions = {
   origin: '*',
 };
 app.use(cors(corsOptions));
+
+
 
 /*
 handle requests for static files
@@ -70,9 +72,7 @@ app.post(
   (req, res) => {
     console.log('server: login route');
     // what should happen here on successful log in?
-    res.locals.login
-      ? res.redirect(200, '/home')
-      : res.redirect(200, '/');
+    res.locals.login ? res.redirect(200, '/home') : res.redirect(200, '/');
   }
 );
 
@@ -178,5 +178,5 @@ app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-app.listen(3000);
+
 
