@@ -45,7 +45,7 @@ const MainPage = (props) => {
     return(
         <div>
             <nav>
-            
+            <button onClick={handlecloseSubmit}>Close</button>
             <link to="/NewForm">Add your bug!</link>
             <link to="/ViewOneForm">Check more!</link>
             </nav>
