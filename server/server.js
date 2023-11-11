@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 
@@ -170,3 +171,12 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
+
+app.use('/build', express.static(path.join(__dirname, '../build')));
+
+app.get('/', (req, res) => {
+  return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
+});
+
+app.listen(3000);
+
