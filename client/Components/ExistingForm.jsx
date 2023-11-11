@@ -9,10 +9,19 @@
 	
 
 
+import React from 'react';
 
-	
 //create function, pass in props as arg
 	//return list, or p, with plaintext to be displayed? and then {props.title} {props.status} {props.tags}
+const ExistingForm = (props) => {
+	console.log(props);
 
+	return (
+		<div>
+		<p>{props.title}{props.tags}{props.status}</p>
+		</div>
+	);
+}
+export default ExistingForm;
 
 //may have to spread tags, depending on form of tags data
