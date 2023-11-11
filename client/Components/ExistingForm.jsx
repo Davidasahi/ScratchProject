@@ -18,7 +18,7 @@ const ExistingForm = (props) => {
 
 	return (
 		<div>
-		<p>{props.title}{props.tags}{props.status}</p>
+		<p>{props.title}{props.tags}{props.status}</p> 
 		</div>
 	);
 }

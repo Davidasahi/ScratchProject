@@ -14,7 +14,7 @@ import ViewOneForm from "./ViewOneForm";
 
 const MainPage = (props) => {
     const [forms, setForms] = useState([]); //do we need to use a state variable in order to make sure its updated? probably not...
-
+    
     //use effect so that components load on page render
     useEffect(()=> {
         //make a get request to receive all forms and data associated with USER ID
@@ -24,6 +24,7 @@ const MainPage = (props) => {
         .then((response) => {
             setForms([...forms, response]); // this will store all forms in an array, and update the array upon each page rerender
             //create variable doneForms to access forms property 
+            
         })
         .catch(err => console.log(`error in fetching existing forms ${err}`))
     }, []);
@@ -51,7 +52,7 @@ const MainPage = (props) => {
         <BrowserRouter>
         <Routes>
         <Route path="/" element={<MainPage/>}/>
-        <Route path="/NewForm" element={<NewForm />} />
+        <Route path="/NewForm/:id" element={<NewForm />} />
         <Route path="/ViewOneForm" element={<ViewOneForm />} />
         {/* <Route path="*" element={<NoPage />} /> */}
         </Routes>
