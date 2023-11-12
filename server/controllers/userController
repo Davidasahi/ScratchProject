@@ -5,6 +5,7 @@ const userController = {};
 userController.signUp = async (req, res, next) => {
   try {
     const { newUsername, newPassword } = req.body; //destructuring username and pass from front end request
+    console.log(newUsername, newPassword)
     //check that both inputs are strings...after
     if (
       typeof req.body.userName === 'string' &&
