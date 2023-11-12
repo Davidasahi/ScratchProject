@@ -15,7 +15,7 @@ const LandingPage = () => {
           username: username,
           password: password,
         }),
-      });
+      })
 
       if (response.ok) {
         console.log('Signup successful');
