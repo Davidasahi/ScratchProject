@@ -39,12 +39,12 @@ app.use(cors(corsOptions));
 /*
 handle requests for static files
 */
-app.use('/client', express.static(path.resolve(__dirname, '../client')));
+// app.use('/client', express.static(path.resolve(__dirname, '../client')));
+app.use('/build', express.static(path.join(__dirname, '../build')));
 
 //main page: server client index
 app.get('/', (req, res) => {
-  console.log('server: serving index');
-  res.sendFile(path.resolve(__dirname, '../client/index.html'));
+  return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
 });
 
 //signup route - what we did in the past is reroute to signup html
@@ -58,7 +58,8 @@ app.post('/signup', userController.signUp, (req, res) => {
   //middleware 3: login the user. run whatever middelware we run with login but with the new user this time... maybe reroute.
   //^ like set ssid cookie? start session?
   //finally, redirect to main page (now that user has new account, cookie and session).
-  res.redirect(200, '/');
+  res.status(200).send('signup succesful');
+  //res.redirect(200, '/');
 });
 
 //login
@@ -117,8 +118,12 @@ get all bug entry for a user
 app.post('/getentries', async (req, res) => {
   try {
     const { user } = req.body;
-    const entries = await Bug.find({ userId: user });
-    res.status(200).json(entries);
+    // Use populate to fill the bugs array in the user document
+    const userWithBugs = await User.findOne({ _id: user }).populate('bugs');
+    if (!userWithBugs) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.status(200).json(userWithBugs.bugs);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Unable to get the entries' });
