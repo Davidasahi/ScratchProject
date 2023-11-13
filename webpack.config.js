@@ -7,11 +7,9 @@ console.log('Environment is: ', process.env.NODE_ENV);
 
 module.exports = {
   mode: process.env.NODE_ENV,
-
-  entry: './client/index.js',
+  entry: path.join(__dirname, './client/index.js'),
   output: {
     filename: 'bundle.js',
-    publicPath: '/',
     path: path.resolve(__dirname, 'build'),
   },
   plugins: [
@@ -24,22 +22,18 @@ module.exports = {
   devServer: {
     static: [
       {
-        directory: path.join(__dirname, 'build'),
         publicPath: '/',
       },
     ],
     host: 'localhost',
     compress: true,
     port: 8080,
-    proxy: {
-      '/': 'http://localhost:3000',
-    },
   },
 
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /.jsx?/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
@@ -47,8 +41,8 @@ module.exports = {
         },
       },
       {
-        test: /\.s[ac]ss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
