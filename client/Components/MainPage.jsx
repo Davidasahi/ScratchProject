@@ -34,13 +34,19 @@ const MainPage = (props) => {
   for (let i = 0; i < forms.length; i++) {
     const eachForm = forms[i];
     listofForms.push(
-      <ExistingForm
-        title={eachForm.title}
-        status={eachForm.status}
-        userid={eachForm.userid}
-        tags={eachForm.tags}
-      />
+      <Link to={'/ViewOneForm'}>
+        <ExistingForm
+          userid={eachForm.userid}
+          title={eachForm.title}
+          status={eachForm.status}
+          tags={eachForm.tags}
+          more={eachForm.more}
+        />
+      </Link>
     );
+    //   <Link to="/ViewOneForm" id="viewmoreform">
+    //   <button type="button">More</button>
+    // </Link>
   }
   return (
     <div>
@@ -55,16 +61,7 @@ const MainPage = (props) => {
           </button>
         </Link>
       </header>
-      <main>
-        <Link to="/ViewOneForm">
-          <button type="button" id="viewmoreform">
-            More
-          </button>
-        </Link>
-
-        {listofForms}
-        
-      </main>
+      <main>{listofForms}</main>
       <nav></nav>
       <BrowserRouter>
         <Routes>
@@ -77,5 +74,6 @@ const MainPage = (props) => {
   );
   //return div with formLists aray
 };
+//
 
 export default MainPage;

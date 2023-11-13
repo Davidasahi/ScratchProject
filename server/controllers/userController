@@ -9,17 +9,21 @@ userController.signUp = async (req, res, next) => {
     const { username , password } = (req.body); //destructuring username and pass from front end request
     const newUsername = username;
     const newPassword = password; //destructuring directly to 'newUsername' and 'newPassword' didn't work :(
+
     // console.log(newUsername, newPassword)
+
     //check that both inputs are strings...after
     if (
       typeof newUsername === 'string' &&
       typeof newPassword === 'string'
     ) {
+
       // console.log('username and password are strings, about to search db for username..')
       //need more than this here.. eg we need:
       let userExists = await User.findOne({ username:  newUsername });
       if (userExists) {
         // console.log('server: username already in use...')
+
         const signUpError = {
           status: 401,
           message: 'username already in use.',
@@ -29,6 +33,7 @@ userController.signUp = async (req, res, next) => {
       signedUpUser = new User({ username: newUsername, password: newPassword });
       signedUpUser.save();
       res.locals.username = newUsername;
+
         return next();
     } //end of string check
   } catch (err) {

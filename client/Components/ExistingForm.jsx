@@ -16,18 +16,24 @@ const ExistingForm = (props) => {
 
   return (
     <main>
-	<h2>A basic HTML table</h2>	
+      <h2>Existing Forms</h2>
       <table>
-        <tr>
-          <th>Title</th>
-          <th>Tags</th>
-          <th>Status</th>
-        </tr>
-        <tr>
-          <td>{props.title}</td>
-          <td>{props.tags}</td>
-          <td>{props.status}</td>
-        </tr>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Tags</th>
+            <th>Status</th>
+            <th>More</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr key={props.userid}>
+            <td>{props.title}</td>
+            <td>{props.tags}</td>
+            <td>{props.status}</td>
+            <td>{props.more}</td>
+          </tr>
+        </tbody>
       </table>
     </main>
   );
