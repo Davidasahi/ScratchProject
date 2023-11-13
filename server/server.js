@@ -72,16 +72,20 @@ app.post(
     console.log('server: login route');
     // what should happen here on successful log in?
     res.locals.login ? res.redirect(200, '/home') : res.redirect(200, '/');
+    // res.redirect(200, '/home')
   }
 );
 
 //see all bugs + create bug form
-app.get('/home', (req, res) => {
+app.use('/home', (req, res) => {
   //send on response all the bugs this user logged (read their cookie to get id to query db)
   //read cookie middleware and return user ID to next middleware (res.locals.userID)
   //retrieve bugs middleware (query db based on user Id, get all bugs and return object to response body)
   //res.body = res.locals.allBugs;
   console.log('server: home page reached (display bugs and create bug form');
+  return res
+    .status(200)
+    .sendFile(path.join(__dirname, '../client/Components/MainPage.jsx'));
 });
 
 // //authorized routes
@@ -103,8 +107,8 @@ app.post('/newentry', async (req, res) => {
   try {
     const newEntry = new Bug(req.body);
     let bug = await newEntry.save();
-    const user = await User.findOne({ _id: req.body._id })
-    user.bugs.push(bug)
+    const user = await User.findOne({ _id: req.body._id });
+    user.bugs.push(bug);
     res.status(201).json(newEntry);
   } catch (error) {
     console.log(error);

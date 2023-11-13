@@ -14,9 +14,9 @@
 import React from 'react';
 
 const viewOneForm = (props) => {
-  // const handleSubmit = () => {
-  //   //GET REQUEST
-  // };
+  const handleSubmit = () => {
+    //GET REQUEST
+  };
 
   return (
     <div>
