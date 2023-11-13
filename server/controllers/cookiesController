@@ -14,7 +14,9 @@ cookieController.bakeSSIDCookie = (req, res, next) => {
   //previous controller chained to this (verifyuser) queries db for username and stores in res.locals.username
   if (res.locals.login){
       console.log(`ssid middleware: user id is: `,res.locals.userId);
+      console.log('aboutToCreateCOokie');
         res.cookie('SSID',res.locals.userId, {httpOnly: true});
+        // console.log('created cookie');
         next();
       }; //looking for _id
   };
