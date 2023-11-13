@@ -1,34 +1,41 @@
 const User = require('../models/userModel');
+var bcrypt = require('bcryptjs');
 
 const userController = {};
 
 userController.signUp = async (req, res, next) => {
   try {
-    const { newUsername, newPassword } = req.body; //destructuring username and pass from front end request
+    console.log('signup middleware in user controller running..')
+    const { username , password } = (req.body); //destructuring username and pass from front end request
+    const newUsername = username;
+    const newPassword = password; //destructuring directly to 'newUsername' and 'newPassword' didn't work :(
     console.log(newUsername, newPassword)
     //check that both inputs are strings...after
     if (
-      typeof req.body.userName === 'string' &&
-      typeof req.body.password === 'string'
+      typeof newUsername === 'string' &&
+      typeof newPassword === 'string'
     ) {
+      console.log('username and password are strings, about to search db for username..')
       //need more than this here.. eg we need:
       let userExists = await User.findOne({ username:  newUsername });
       if (userExists) {
+        console.log('server: username already in use...')
         const signUpError = {
           status: 401,
           message: 'username already in use.',
         };
         return next(signUpError);
       }
-
+      let signedUpUser = {};
       const saltRounds = 10;
+      
       bcrypt.hash(newPassword, saltRounds, (err, hash) => {
         if (err) throw new Error('bcrypt issue: ',err);
-        let newUser = new User({ username: newUsername, password: hash });
-      });
-
-      newUser.save().then(() => {
-        res.locals.username = username;
+        signedUpUser = new User({ username: newUsername, password: hash });
+        signedUpUser.save().then(() => {
+        });
+        console.log(signedUpUser);
+        res.locals.username = newUsername;
         return next();
       });
     } //end of string check
