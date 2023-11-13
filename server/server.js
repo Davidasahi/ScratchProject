@@ -1,11 +1,10 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-
 const cors = require('cors');
-
 const Session = require('./models/sessionModel');
 const User = require('./models/userModel');
 const Bug = require('./models/bugModel');
@@ -14,7 +13,7 @@ const userController = require('./controllers/userController');
 const sessionController = require('./controllers/sessionController');
 const cookiesController = require('./controllers/cookiesController');
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 mongoose
   .connect('mongodb://localhost:27017/itemsApp', { useNewUrlParser: true })
@@ -175,3 +174,9 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
+
+app.use('/build', express.static(path.join(__dirname, '../build')));
+
+app.get('/', (req, res) => {
+  return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
+});
