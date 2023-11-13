@@ -11,8 +11,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import NewForm from './NewForm';
 import ViewOneForm from './ViewOneForm';
 import ExistingForm from './ExistingForm';
-
-const imageUrl = `./client/duck.png`;
+const imageUrl = './duck.png';
 
 const MainPage = (props) => {
   const [forms, setForms] = useState([]); //do we need to use a state variable in order to make sure its updated? probably not...
@@ -62,13 +61,23 @@ const MainPage = (props) => {
   // </Link>
   // }
   //  <img src='./client/duck.png' height="150px" width="150px"></img>
-   {/* <img src="https://codesmithnyconsite8.slack.com/files/U060A842KUG/F065469F3AT/debugduck.png"/> */}
-        {/* <img src={imageUrl} alt="" /> */}
+  {
+    /* <img src="https://codesmithnyconsite8.slack.com/files/U060A842KUG/F065469F3AT/debugduck.png"/> */
+  }
+  {
+    /* <img src={imageUrl} alt="" /> */
+  }
   return (
-    <div>
+    <div id="homepage">
       <header>
-        <h1 className="headertitle">Debugduck</h1>
-       
+        <div id="homebanner">
+          <h1 className="headertitle">Debugduck</h1>
+          <img
+            src="https://freight.cargo.site/t/original/i/50ac5b71248b5b66a7c687379c7afbca0f23c969ac1316e10c3cde143cd4ec58/debugDuck.png"
+            width="170px"
+            height="240px"
+          />
+        </div>
         <p>Add your new bug</p>
         <Link to="/NewForm">
           <button type="button" id="newform">

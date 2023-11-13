@@ -35,9 +35,9 @@ const ExistingForm = (props) => {
         <thead>
           <tr>
             <th>Title</th>
-            <th>Tags</th>
+            {/* <th>Tags</th>
             <th>Status</th>
-            <th>More</th>
+            <th>More</th> */}
           </tr>
         </thead>
         <tbody>
