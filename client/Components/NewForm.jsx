@@ -17,7 +17,7 @@
 import React, { useEffect } from 'react';
 
 const NewForm = (props) => {
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
     const title = document.querySelector('#title');
     const whatProblem = document.querySelector('#whatproblem');
     const whatHappen = document.querySelector('#whathappen');
@@ -44,7 +44,7 @@ const NewForm = (props) => {
         technology: bugType.value,
         status: solveOrNot.value,
         userId: props.userId,
-      }), 
+      }),
     })
       .then((response) => {
         if (!response.ok) {

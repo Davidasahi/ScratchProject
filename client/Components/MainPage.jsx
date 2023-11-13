@@ -51,7 +51,7 @@ const MainPage = (props) => {
   return (
     <div>
       <header>
-        <h1 class="headertitle">
+        <h1 className="headertitle">
           <b>Debugduck</b>
         </h1>
         <p>Add your new bug</p>
@@ -60,12 +60,13 @@ const MainPage = (props) => {
             Add
           </button>
         </Link>
+
       </header>
       <main>{listofForms}</main>
       <nav></nav>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/home" element={<MainPage />} />
           <Route path="/NewForm/:id" element={<NewForm />} />
           <Route path="/ViewOneForm" element={<ViewOneForm />} />
         </Routes>
