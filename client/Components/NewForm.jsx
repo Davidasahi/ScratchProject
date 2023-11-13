@@ -17,27 +17,26 @@
 import React, { useEffect } from 'react';
 
 const NewForm = (props) => {
-  const handleSubmit = () => {
-    // 	const x = document.querySelector('') // create a variable for each of the input fields
-    //	(create a constant for any/each ticked boxes)
-    // 	event.preventDefault();
-    // 	  fetch('/',{ //update with correct endpoint
-    // 		method: 'POST',
-    // 		headers: {'Content-Type': 'application/json'}, //double check these are correct headers
-    // 		body: JSON.stringify({x: event.target[0, ...?].value, USERid: props.USERID}) //replace userid with 		correct reference to property on object, update event target according to page layout, include relevant tags
-    // 	  })
-    // 	  .then((response) =>{
-    // 		if(!response.ok){
-    // 			throw new Error('Error submitting bug form', response);
-    // 		}
-    // 		//
-    // 		event.target[0].value = ''; // only necessary if we are not having submit button also link to homePage
-    // 	  })
-    // 	 .catch((error) => {
-    // 	  console.error(error);
-    // 	});
-    //   };
-  };
+  // const handleSubmit = () => {
+  //   	const x = document.querySelector('') // create a variable for each of the input fields
+  //   	// (create a constant for any/each ticked boxes)
+  //   	event.preventDefault();
+  //   	  fetch('/getentries',{ //update with correct endpoint
+  //   		method: 'POST',
+  //   		headers: {'Content-Type': 'application/json'}, //double check these are correct headers
+  //   		body: JSON.stringify({x: event.target[0, ...?].value, userId: props.USERID}) //replace userid with 		correct reference to property on object, update event target according to page layout, include relevant tags
+  //   	  })
+  //   	  .then((response) =>{
+  //   		if(!response.ok){
+  //   			throw new Error('Error submitting bug form', response);
+  //   		}
+  //   		//
+  //   		event.target[0].value = ''; // only necessary if we are not having submit button also link to homePage
+  //   	  })
+  //   	 .catch((error) => {
+  //   	  console.error(error);
+  //   	});
+  //     };
 
   //display hard-coded text prompts
   //display text box below each prompt
@@ -70,28 +69,44 @@ const NewForm = (props) => {
         placeholder="Copy and paste your error messge..."
         id="errorcode"
       />
+      <p>6. Solution:</p>
+      <input
+        type="text"
+        placeholder="Enter your solution here..."
+        id="errorcode"
+      />
       <br />
-      <div class="dropdown">
-        <button class="dropbtn" id="bugtype">
-          6. Bug type:
-        </button>
-        <div class="dropdown-content">
-          <a href="#">React.js</a>
-          <a href="#">Express.js</a>
-          <a href="#">Database(SQL/MondoDB)</a>
-          <a href="#">UX(HTML, CSS)</a>
-          <a href="#">Others</a>
+      <div id="solve">
+        <p>7. Bug types:</p>
+        <div>
+          <input type="checkbox" id="frontEnd" name="frontEnd" checked />
+          <label for="scales">FrontEnd(React.js)</label>
+        </div>
+        <div>
+          <input type="checkbox" id="backEnd" name="backEnd" />
+          <label for="horns">Backend(Node.js/Express.js)</label>
+        </div>
+        <div>
+          <input type="checkbox" id="database" name="database" />
+          <label for="horns">Database(SQL/MondoDB)</label>
+        </div>
+        <div>
+          <input type="checkbox" id="uxui" name="uxui" />
+          <label for="horns">UI/UX(HTML, CSS)</label>
+        </div>
+        <div>
+          <input type="checkbox" id="others" name="others" />
+          <label for="horns">Others</label>
         </div>
       </div>
-      <div id="solve">
-        <p>7. Has the bug been solved?</p>
-        <div>
-          <input type="checkbox" id="notsolved" name="scales" checked />
-          <label for="scales">Not solved</label>
-        </div>
-        <div>
-          <input type="checkbox" id="solved" name="horns" />
-          <label for="horns">Solved</label>
+
+      <div class="dropdown">
+        <button class="dropbtn" id="solveOrNot">
+          8. Has the bug been solved?:
+        </button>
+        <div class="dropdown-content">
+          <a href="#">Solved</a>
+          <a href="#">Not Solved</a>
         </div>
       </div>
       <button type="submit">Submit</button>
