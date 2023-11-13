@@ -52,6 +52,7 @@ const viewOneForm = (props) => {
         </ol>
       </form>
       <button onClick={handleSubmit}>Close</button>
+      
     </div>
   );
 };

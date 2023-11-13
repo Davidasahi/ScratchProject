@@ -1,5 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
+.app {
+  background-image: url(https://freight.cargo.site/t/original/i/50ac5b71248b5b66a7c687379c7afbca0f23c969ac1316e10c3cde143cd4ec58/debugDuck.png);
+}
+
 h1 {
   color: red;
+}
+
+.headertitle {
+  font-family: 'Playfair Display', serif;
 }
 
 /* Dropdown Button */
@@ -42,7 +52,9 @@ h1 {
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #A9A9A9;}
+.dropdown:hover .dropbtn {
+  background-color: #a9a9a9;
+}
 .dropdown:hover .dropbtn {
   background-color: #a9a9a9;
 }

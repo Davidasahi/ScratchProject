@@ -106,7 +106,7 @@ create a new bug entry
 app.post('/newentry', async (req, res) => {
   try {
     const newEntry = new Bug(req.body);
-    let bug = await newEntry.save();
+    await newEntry.save();
     // const user = await User.findOne({ _id: req.body._id });
     // user.bugs.push(bug)
     res.status(201).json(newEntry);
@@ -121,15 +121,17 @@ get all bug entry for a user
 
 ?? use app.get and have the user cookie in 
 */
-app.post('/getentries', async (req, res) => {
+app.get('/getentries', async (req, res) => {
   try {
-    const { user } = req.body;
+    // const { user } = req.body;
     // Use populate to fill the bugs array in the user document
-    const userWithBugs = await User.findOne({ _id: user }).populate('bugs');
+    // const userWithBugs = await User.findOne({ _id: user }).populate('bugs');
+    const userWithBugs = await Bug.find().exec();
     if (!userWithBugs) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json(userWithBugs.bugs);
+    
+    res.status(200).json(userWithBugs);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Unable to get the entries' });
