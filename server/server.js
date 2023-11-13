@@ -102,7 +102,9 @@ create a new bug entry
 app.post('/newentry', async (req, res) => {
   try {
     const newEntry = new Bug(req.body);
-    await newEntry.save();
+    let bug = await newEntry.save();
+    const user = await User.findOne({ _id: req.body._id })
+    user.bugs.push(bug)
     res.status(201).json(newEntry);
   } catch (error) {
     console.log(error);
@@ -169,14 +171,11 @@ app.use((err, req, res, next) => {
   res.status(500).send({ error: err });
 });
 
+app.use('/build', express.static(path.join(__dirname, '../build')));
+
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}...`);
 });
 
 module.exports = app;
 
-app.use('/build', express.static(path.join(__dirname, '../build')));
-
-app.get('/', (req, res) => {
-  return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
-});
