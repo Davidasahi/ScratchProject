@@ -1,0 +1,23 @@
+const User = require('../models/userModel');
+const cookieController = {};
+
+// //setCookie that has user ID?
+// cookieController.setCookie = (req, res, next) => {
+//   //fetch request to database to retrieve user ID based on res.locals.username IF login success.. if res.locals.login is true
+// //the username here is received from previous middleware function which is "verify user"--> checks if user is in database?
+//   res.cookie('user_Id', res.locals.username);
+//   next();
+// }
+
+///this middleware is the server sending the client a cookie, which we check later to persist a session
+cookieController.bakeSSIDCookie = (req, res, next) => {
+  //previous controller chained to this (verifyuser) queries db for username and stores in res.locals.username
+  if (res.locals.login){
+      console.log(`ssid middleware: user id is: `,res.locals.userId);
+        res.cookie('SSID',res.locals.userId, {httpOnly: true});
+        next();
+      }; //looking for _id
+  };
+
+
+module.exports = cookieController;

@@ -13,22 +13,32 @@
 
 import React from 'react';
 
-const viewOneForm = () => {
-  const handlecloseSubmit = () => {};
+const viewOneForm = (props) => {
+  const handleSubmit = () => {};
 
-  retuen(
+  return (
     <div>
-      <button onClick={handlecloseSubmit}>Close</button>
+      <h2>Your bug:</h2>
       <form onSubmit={handleSubmit}>
-        <ul id="whatproblem"></ul>
-        <ul id="whathappen"></ul>
-        <ul id="whattry"></ul>
-        <ul id="whysuspect"></ul>
-        <ul id="errorcode"></ul>
-        <ul id="bugtype"></ul>
-        <ul id="solved"></ul>
+        <ol>
+          <ul id="whatproblem">What is the problem?</ul>
+          <p>{props.whatproblem}</p>
+          <ul id="whathappen">What did i expect to happen?</ul>
+          <p>{props.whathappen}</p>
+          <ul id="whattry">What have I tried?</ul>
+          <p>{props.whattry}</p>
+          <ul id="whysuspect">Why I suspect its not working?</ul>
+          <p>{props.whysuspect}</p>
+          <ul id="errorcode">Error message:</ul>
+          <p>{props.errorcode}</p>
+          <ul id="bugtype">Bug type</ul>
+          <p>{props.bugtype}</p>
+          <ul id="solved">Has the bug been solved?</ul>
+          <p>{props.solved}</p>
+        </ol>
       </form>
+      <button onClick={handleSubmit}>Close</button>
     </div>
   );
 };
-export default MainPage;
+export default viewOneForm;

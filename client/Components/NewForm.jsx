@@ -55,10 +55,10 @@ const NewForm = (props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* Question  */}
+      <h2>Create new form </h2>
       <p>1. What is the problem?</p>
       <input type="text" placeholder="The problem..." id="whatproblem" />
-      <p>2. What did i expect to happen</p>
+      <p>2. What did i expect to happen?</p>
       <input type="text" placeholder="Show us..." id="whathappen" />
       <p>3. What have I tried?</p>
       <input type="text" placeholder="What did you try..." id="whattry" />
@@ -70,6 +70,7 @@ const NewForm = (props) => {
         placeholder="Copy and paste your error messge..."
         id="errorcode"
       />
+      <br />
       <div class="dropdown">
         <button class="dropbtn" id="bugtype">
           6. Bug type:
@@ -82,8 +83,8 @@ const NewForm = (props) => {
           <a href="#">Others</a>
         </div>
       </div>
-      <fieldset id="solve">
-        <legend>7. Has the bug been solved?</legend>
+      <div id="solve">
+        <p>7. Has the bug been solved?</p>
         <div>
           <input type="checkbox" id="notsolved" name="scales" checked />
           <label for="scales">Not solved</label>
@@ -92,7 +93,7 @@ const NewForm = (props) => {
           <input type="checkbox" id="solved" name="horns" />
           <label for="horns">Solved</label>
         </div>
-      </fieldset>
+      </div>
       <button type="submit">Submit</button>
     </form>
   );

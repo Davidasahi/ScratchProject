@@ -1,0 +1,81 @@
+const User = require('../models/userModel');
+
+const userController = {};
+
+userController.signUp = async (req, res, next) => {
+  try {
+    const { newUsername, newPassword } = req.body; //destructuring username and pass from front end request
+    //check that both inputs are strings...after
+    if (
+      typeof req.body.userName === 'string' &&
+      typeof req.body.password === 'string'
+    ) {
+      //need more than this here.. eg we need:
+      let userExists = await User.findOne({ username:  newUsername });
+      if (userExists) {
+        const signUpError = {
+          status: 401,
+          message: 'username already in use.',
+        };
+        return next(signUpError);
+      }
+
+      const saltRounds = 10;
+      bcrypt.hash(newPassword, saltRounds, (err, hash) => {
+        if (err) throw new Error('bcrypt issue: ',err);
+        let newUser = new User({ username: newUsername, password: hash });
+      });
+
+      newUser.save().then(() => {
+        res.locals.username = username;
+        return next();
+      });
+    } //end of string check
+  } catch (err) {
+    //end of try
+    next(err);
+  }
+};
+
+userController.verifyUser = async (req, res, next) => {
+  if (
+    typeof req.body.username === 'string' &&
+    typeof req.body.password === 'string'
+  ) {
+    console.log('server: verifying user:', req.body);
+    //find user in database accroding to req.body
+    const { username, password } = req.body; //destructure username and password from req.body
+    let user = await User.findOne({ username: username });
+    if (!user) {
+      //if user not found..
+      res.locals.login = false;
+      console.log('server: username not found - invalid credentials');
+      const loginError = {
+        status: '401',
+        message: 'invalid username or password (failed login)',
+      };
+      return next(loginError);
+    } else { //user found.. time to check password
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (result) { //if password correct
+          console.log('server: login succesful. User found');
+          res.locals.login = true;
+          res.locals.username = user.username; //pass along username for SSID
+          res.locals.userId = user._id;
+          next();
+        } else {
+          //password incorrect
+          res.locals.login = false;
+          console.log('server: password issue, error: ', err);
+          const loginError = {
+            status: '401',
+            message: 'invalid username or password (failed login)',
+          };
+          return next(loginError);
+        }
+      });
+    }
+  }
+};
+
+module.exports = userController;
