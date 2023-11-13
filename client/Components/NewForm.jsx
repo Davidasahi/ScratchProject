@@ -17,26 +17,44 @@
 import React, { useEffect } from 'react';
 
 const NewForm = (props) => {
-  // const handleSubmit = () => {
-  //   	const x = document.querySelector('') // create a variable for each of the input fields
-  //   	// (create a constant for any/each ticked boxes)
-  //   	event.preventDefault();
-  //   	  fetch('/getentries',{ //update with correct endpoint
-  //   		method: 'POST',
-  //   		headers: {'Content-Type': 'application/json'}, //double check these are correct headers
-  //   		body: JSON.stringify({x: event.target[0, ...?].value, userId: props.USERID}) //replace userid with 		correct reference to property on object, update event target according to page layout, include relevant tags
-  //   	  })
-  //   	  .then((response) =>{
-  //   		if(!response.ok){
-  //   			throw new Error('Error submitting bug form', response);
-  //   		}
-  //   		//
-  //   		event.target[0].value = ''; // only necessary if we are not having submit button also link to homePage
-  //   	  })
-  //   	 .catch((error) => {
-  //   	  console.error(error);
-  //   	});
-  //     };
+  const handleSubmit = () => {
+    const title = document.querySelector('#title');
+    const whatProblem = document.querySelector('#whatproblem');
+    const whatHappen = document.querySelector('#whathappen');
+    const whatTry = document.querySelector('#whattry');
+    const whySuspect = document.querySelector('#whysuspect');
+    const errorCode = document.querySelector('#errorcode');
+    const solution = document.querySelector('#solution');
+    const bugType = document.querySelector('#bugtype');
+    const solveOrNot = document.querySelector('#solveornot'); // create a variable for each of the input fields
+    // (create a constant for any/each ticked boxes)
+    event.preventDefault();
+    fetch('/newentry', {
+      //update with correct endpoint
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }, //double check these are correct headers
+      body: JSON.stringify({
+        title: title.value,
+        problem: whatProblem.value,
+        attempts: whatTry.value,
+        assumptions: whySuspect.value,
+        errorCode: errorCode.value,
+        expected: whatHappen.value,
+        solution: solution.value,
+        technology: bugType.value,
+        status: solveOrNot.value,
+        userId: props.userId,
+      }), 
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Error submitting bug form', response);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   //display hard-coded text prompts
   //display text box below each prompt
@@ -55,58 +73,78 @@ const NewForm = (props) => {
   return (
     <form onSubmit={handleSubmit}>
       <h2>Create new form </h2>
-      <p>1. What is the problem?</p>
-      <input type="text" placeholder="The problem..." id="whatproblem" />
-      <p>2. What did i expect to happen?</p>
-      <input type="text" placeholder="Show us..." id="whathappen" />
-      <p>3. What have I tried?</p>
-      <input type="text" placeholder="What did you try..." id="whattry" />
-      <p>4. Why I suspect its not working?</p>
-      <input type="text" placeholder="Why..." id="whysuspect" />
-      <p>5. Error message:</p>
+      <p>1. Title your bug!</p>
+      <input type="text" placeholder="Title your bug..." id="title" />
+      <p>2. What is the problem?</p>
+      <input type="text" placeholder="The problem..." id="whatProblem" />
+      <p>3. What did i expect to happen?</p>
+      <input type="text" placeholder="Show us..." id="whatHappen" />
+      <p>4. What have I tried?</p>
+      <input type="text" placeholder="What did you try..." id="whatTry" />
+      <p>5. Why I suspect its not working?</p>
+      <input type="text" placeholder="Why..." id="whySuspect" />
+      <p>6. Error message:</p>
       <input
         type="text"
         placeholder="Copy and paste your error messge..."
-        id="errorcode"
+        id="errorCode"
       />
-      <p>6. Solution:</p>
+      <p>7. Solution:</p>
       <input
         type="text"
         placeholder="Enter your solution here..."
-        id="errorcode"
+        id="solution"
       />
       <br />
-      <div id="solve">
-        <p>7. Bug types:</p>
+      <div id="bugType">
+        <p>8. Technology used: </p>
         <div>
-          <input type="checkbox" id="frontEnd" name="frontEnd" checked />
+          <input
+            type="checkbox"
+            id="frontEnd"
+            name="Technology"
+            value="frontEnd"
+            checked
+          />
           <label for="scales">FrontEnd(React.js)</label>
         </div>
         <div>
-          <input type="checkbox" id="backEnd" name="backEnd" />
+          <input
+            type="checkbox"
+            id="backEnd"
+            name="Technology"
+            value="backEnd"
+          />
           <label for="horns">Backend(Node.js/Express.js)</label>
         </div>
         <div>
-          <input type="checkbox" id="database" name="database" />
-          <label for="horns">Database(SQL/MondoDB)</label>
+          <input
+            type="checkbox"
+            id="database"
+            name="Technology"
+            value="database"
+          />
+          <label for="horns">Database(SQL/MongoDB)</label>
         </div>
         <div>
-          <input type="checkbox" id="uxui" name="uxui" />
+          <input type="checkbox" id="uxui" name="Technology" value="uxui" />
           <label for="horns">UI/UX(HTML, CSS)</label>
         </div>
         <div>
-          <input type="checkbox" id="others" name="others" />
+          <input type="checkbox" id="others" name="Technology" value="others" />
           <label for="horns">Others</label>
         </div>
       </div>
 
-      <div class="dropdown">
-        <button class="dropbtn" id="solveOrNot">
-          8. Has the bug been solved?:
-        </button>
+      <div class="dropdown" id="solveOrNot">
+        <button class="dropbtn">9. Has the bug been solved?:</button>
         <div class="dropdown-content">
-          <a href="#">Solved</a>
-          <a href="#">Not Solved</a>
+          <a href="#" value="true">
+            Solved
+          </a>
+          <a href="#" value="false">
+            Not Solved
+          </a>
         </div>
       </div>
       <button type="submit">Submit</button>
