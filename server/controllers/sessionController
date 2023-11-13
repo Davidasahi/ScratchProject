@@ -20,13 +20,12 @@ sessionController.isLoggedIn = (req, res, next) => {
 /**
  * startSession - create and save a new Session into the database.
  */
-sessionController.startSession = (req, res, next) => {
+sessionController.startSession = async (req, res, next) => {
   //new doc in mongo database
   //use ssid for it
   const docObj = { cookieId: res.locals.userId };
-  Session.create(docObj, () => {
-    return next();
-  });
+  await Session.create(docObj);
+  next();
 };
 
 module.exports = sessionController;
