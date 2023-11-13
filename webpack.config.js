@@ -7,11 +7,11 @@ console.log('Environment is: ', process.env.NODE_ENV);
 
 module.exports = {
   mode: process.env.NODE_ENV,
-
   entry: './client/index.js',
   output: {
     filename: 'bundle.js',
     publicPath: '/',
+    clean: true,
     path: path.resolve(__dirname, 'build'),
   },
   plugins: [
@@ -51,5 +51,9 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
+  },
+  resolve: {
+    // Enable importing JS / JSX files without specifying their extension
+    extensions: ['', '.js', '.jsx', '.css'],
   },
 };
