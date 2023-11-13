@@ -10,7 +10,7 @@ sessionController.isLoggedIn = (req, res, next) => {
   Session.find({ cookieId: SSIDcookie }) //look in
     .exec((err, result) => {
       if (err) next(err);
-      // console.log('finding cookie');
+      console.log('finding cookie');
       // console.log('server: session ongoing, result:"', result);
       res.locals.login = true;
       return next();
