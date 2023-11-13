@@ -9,35 +9,32 @@ userController.signUp = async (req, res, next) => {
     const { username , password } = (req.body); //destructuring username and pass from front end request
     const newUsername = username;
     const newPassword = password; //destructuring directly to 'newUsername' and 'newPassword' didn't work :(
-    console.log(newUsername, newPassword)
+
+    // console.log(newUsername, newPassword)
+
     //check that both inputs are strings...after
     if (
       typeof newUsername === 'string' &&
       typeof newPassword === 'string'
     ) {
-      console.log('username and password are strings, about to search db for username..')
+
+      // console.log('username and password are strings, about to search db for username..')
       //need more than this here.. eg we need:
       let userExists = await User.findOne({ username:  newUsername });
       if (userExists) {
-        console.log('server: username already in use...')
+        // console.log('server: username already in use...')
+
         const signUpError = {
           status: 401,
           message: 'username already in use.',
         };
         return next(signUpError);
       }
-      let signedUpUser = {};
-      const saltRounds = 10;
-      
-      bcrypt.hash(newPassword, saltRounds, (err, hash) => {
-        if (err) throw new Error('bcrypt issue: ',err);
-        signedUpUser = new User({ username: newUsername, password: hash });
-        signedUpUser.save().then(() => {
-        });
-        console.log(signedUpUser);
-        res.locals.username = newUsername;
+      signedUpUser = new User({ username: newUsername, password: newPassword });
+      signedUpUser.save();
+      res.locals.username = newUsername;
+
         return next();
-      });
     } //end of string check
   } catch (err) {
     //end of try
@@ -46,30 +43,35 @@ userController.signUp = async (req, res, next) => {
 };
 
 userController.verifyUser = async (req, res, next) => {
+  const { username, password } = req.body; //destructure username and password from req.body
+  // console.log('server: username:',username,' password:',password);
   if (
-    typeof req.body.username === 'string' &&
-    typeof req.body.password === 'string'
+    typeof username === 'string' &&
+    typeof password === 'string'
   ) {
-    console.log('server: verifying user:', req.body);
+    // console.log('server: verify user middleware, username:', username);
     //find user in database accroding to req.body
-    const { username, password } = req.body; //destructure username and password from req.body
     let user = await User.findOne({ username: username });
+    // console.log('server: verify middleware, user found: ',user);
     if (!user) {
       //if user not found..
       res.locals.login = false;
-      console.log('server: username not found - invalid credentials');
+      // console.log('server: username not found - invalid credentials');
       const loginError = {
         status: '401',
         message: 'invalid username or password (failed login)',
       };
       return next(loginError);
     } else { //user found.. time to check password
+      // console.log('given password is ',password, 'and stored password is', user.password);
       bcrypt.compare(password, user.password, (err, result) => {
+        // console.log('bcrypt compare result:',result);
         if (result) { //if password correct
-          console.log('server: login succesful. User found');
+          // console.log('server: login succesful. User found');
           res.locals.login = true;
           res.locals.username = user.username; //pass along username for SSID
           res.locals.userId = user._id;
+          // console.log('res locals: ',res.locals.login,' username:',res.locals.username,' userId:',user._id);
           next();
         } else {
           //password incorrect

@@ -107,8 +107,8 @@ app.post('/newentry', async (req, res) => {
   try {
     const newEntry = new Bug(req.body);
     let bug = await newEntry.save();
-    const user = await User.findOne({ _id: req.body._id });
-    user.bugs.push(bug);
+    // const user = await User.findOne({ _id: req.body._id });
+    // user.bugs.push(bug)
     res.status(201).json(newEntry);
   } catch (error) {
     console.log(error);

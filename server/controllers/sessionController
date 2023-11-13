@@ -10,8 +10,8 @@ sessionController.isLoggedIn = (req, res, next) => {
   Session.find({ cookieId: SSIDcookie }) //look in
     .exec((err, result) => {
       if (err) next(err);
-      // console.log('finding cookie');
-      console.log('server: session ongoing, result:"', result);
+      console.log('finding cookie');
+      // console.log('server: session ongoing, result:"', result);
       res.locals.login = true;
       return next();
     });
@@ -20,13 +20,12 @@ sessionController.isLoggedIn = (req, res, next) => {
 /**
  * startSession - create and save a new Session into the database.
  */
-sessionController.startSession = (req, res, next) => {
+sessionController.startSession = async (req, res, next) => {
   //new doc in mongo database
   //use ssid for it
   const docObj = { cookieId: res.locals.userId };
-  Session.create(docObj, () => {
-    return next();
-  });
+  await Session.create(docObj);
+  next();
 };
 
 module.exports = sessionController;
