@@ -20,6 +20,9 @@ module.exports = {
   ],
 
   devServer: {
+    proxy: {
+      '/': 'http://localhost:3000',
+    },
     static: [
       {
         publicPath: '/',
@@ -27,7 +30,7 @@ module.exports = {
     ],
     host: 'localhost',
     compress: true,
-    port: 8080
+    port: 8080,
   },
 
   module: {
