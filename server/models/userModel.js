@@ -8,6 +8,7 @@ const userSchema = new Schema({
   username: {type: String, required: [true, 'Username is required'], unique: true},
   email: {type: String},
   password: {type: String, required: [true, 'Password is required']},
+  bugs: [{ type: Schema.Types.ObjectId, ref: 'Bug' }],
 });
 
 userSchema.pre('save', function(next){
