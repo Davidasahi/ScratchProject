@@ -1,9 +1,7 @@
 import React from 'react';
 import LandingPage from './Components/LandingPage.jsx';
 import MainPage from './Components/MainPage.jsx';
-import './style.css';
-
-const App = () => {
+const mainPage = () => {
   return (
     <div>
       <MainPage />
@@ -11,4 +9,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default mainPage;

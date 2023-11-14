@@ -7,70 +7,96 @@
 //sort by logic to change list of existing forms by corresponding tag
 
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import NewForm from './NewForm';
 import ViewOneForm from './ViewOneForm';
 import ExistingForm from './ExistingForm';
+const imageUrl = './duck.png';
 
 const MainPage = (props) => {
   const [forms, setForms] = useState([]); //do we need to use a state variable in order to make sure its updated? probably not...
 
   //use effect so that components load on page render
   useEffect(() => {
+    console.log(forms, 'Forms!');
     //make a get request to receive all forms and data associated with USER ID
-    fetch('/') //update with correct endpoint POST REQUEST WITH USER ID ON REQ BODY
+    fetch('http://localhost:3000/getentries') //update with correct endpoint POST REQUEST WITH USER ID ON REQ BODY
       .then((res) => res.json())
       // store parsed json response on object
       .then((response) => {
-        setForms([...forms, response]); // this will store all forms in an array, and update the array upon each page rerender
+        console.log(response, 'updated response');
+        setForms(response);
+        console.log(forms, 'updated forms'); // this will store all forms in an array, and update the array upon each page rerender
         //create variable doneForms to access forms property
       })
       .catch((err) => console.log(`error in fetching existing forms ${err}`));
   }, []);
 
-  const listofForms = [];
-  //create formLists variable set to an array
-  //iterate through forms,
-  for (let i = 0; i < forms.length; i++) {
-    const eachForm = forms[i];
-    listofForms.push(
-      <Link to={'/ViewOneForm'}>
-        <ExistingForm
-          userid={eachForm.userid}
-          title={eachForm.title}
-          status={eachForm.status}
-          tags={eachForm.tags}
-          more={eachForm.more}
-        />
-      </Link>
-    );
-    //   <Link to="/ViewOneForm" id="viewmoreform">
-    //   <button type="button">More</button>
-    // </Link>
+  const listofForms = forms.map((eachForm, index) => (
+    <ExistingForm
+      key={index}
+      userid={eachForm.userid}
+      title={eachForm.title}
+      status={eachForm.status}
+      tags={eachForm.technology}
+      more={eachForm.more}
+      all={eachForm}
+    />
+  ));
+
+  //create formLists variable set to an array, iterate through forms,
+  // for (let i = 0; i < forms.length; i++) {
+  //   const eachForm = forms[i];
+  //   listofForms.push(
+  //     <ExistingForm
+  //       userid={eachForm.userid}
+  //       title={eachForm.title}
+  //       status={eachForm.status}
+  //       tags={eachForm.technology}
+  //       more={eachForm.more}
+  //     />
+  //   );
+  //   <Link to="/ViewOneForm" id="viewmoreform">
+  //   <button type="button">More</button>
+  // </Link>
+  // }
+  //  <img src='./client/duck.png' height="150px" width="150px"></img>
+  {
+    /* <img src="https://codesmithnyconsite8.slack.com/files/U060A842KUG/F065469F3AT/debugduck.png"/> */
+  }
+  {
+    /* <img src={imageUrl} alt="" /> */
   }
   return (
-    <div>
+    <div id="homepage">
       <header>
-        <h1 className="headertitle">
-          <b>Debugduck</b>
-        </h1>
+        <div id="homebanner">
+          <h1 className="headertitle">Debugduck</h1>
+          <img
+            src="https://freight.cargo.site/t/original/i/50ac5b71248b5b66a7c687379c7afbca0f23c969ac1316e10c3cde143cd4ec58/debugDuck.png"
+            width="170px"
+            height="240px"
+          />
+        </div>
         <p>Add your new bug</p>
         <Link to="/NewForm">
           <button type="button" id="newform">
-            Add
+            Add new bug!
           </button>
         </Link>
-
+        <Link to="/ViewOneForm">
+          <button type="button" id="ViewOneForm">
+            View our bug!
+          </button>
+        </Link>
       </header>
-      <main>{listofForms}</main>
-      <nav></nav>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/home" element={<MainPage />} />
-          <Route path="/NewForm/:id" element={<NewForm />} />
-          <Route path="/ViewOneForm" element={<ViewOneForm />} />
-        </Routes>
-      </BrowserRouter>
+      <main>{listofForms} </main>
+      <Routes>
+        <Route path="/home" element={<MainPage />} />
+        <Route path="/NewForm/" element={<NewForm />} />
+        <Route path="/ExistingForm/" element={<ExistingForm />} />
+        <Route path="/ViewOneForm" element={<ViewOneForm />} />
+      </Routes>
     </div>
   );
   //return div with formLists aray
